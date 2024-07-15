@@ -1,12 +1,18 @@
 const Gameboard = (() => {
-    let gameboard = ["", "","","","","","","",""];
+    let gameboard = ["", "", "", "", "", "", "", "", ""];
 
     const render = () => {
+        console.log("Rendering gameboard");
         let boardHTML = "";
         gameboard.forEach((square, index) => {
             boardHTML += `<div class="square" id="square-${index}">${square}</div>`;
         });
-        document.querySelector("#gameboard").innerHTML = boardHTML;
+        const gameboardDiv = document.querySelector("#gameboard");
+        if (gameboardDiv) {
+            gameboardDiv.innerHTML = boardHTML;
+        } else {
+            console.error("Gameboard element not found!");
+        }
     };
     return {
         render,
@@ -14,6 +20,7 @@ const Gameboard = (() => {
 })();
 
 const createPlayer = (name, mark) => {
+    console.log(`Creating player: ${name} with mark ${mark}`);
     return {
         name,
         mark,
@@ -26,6 +33,7 @@ const Game = (() => {
     let gameOver = false;
 
     const start = () => {
+        console.log("Starting game");
         players = [
             createPlayer(document.querySelector("#player1").value, "X"),
             createPlayer(document.querySelector("#player2").value, "O"),
@@ -41,5 +49,6 @@ const Game = (() => {
 
 const startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", () => {
+    console.log("Start button clicked");
     Game.start();
 });
